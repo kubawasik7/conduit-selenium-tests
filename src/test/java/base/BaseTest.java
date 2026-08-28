@@ -7,18 +7,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class BaseTest {
-    protected WebDriver webDriver;
+    protected WebDriver driver;
 
     @BeforeEach
     void setUp(){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--incognito");
 
-        webDriver = new ChromeDriver(options);
+        driver = new ChromeDriver(options);
     }
 
     @AfterEach
     void tearDown(){
-        webDriver.quit();
+        driver.quit();
     }
 }
