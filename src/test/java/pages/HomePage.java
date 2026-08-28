@@ -10,7 +10,8 @@ public class HomePage extends BasePage{
         super(driver);
     }
 
-    public void clickSignIn(){
+    public LoginPage clickSignIn(){
         waitForClickable(signInLink).click();
+        return new LoginPage(driver);
     }
 }
