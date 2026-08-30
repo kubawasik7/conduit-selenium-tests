@@ -38,4 +38,8 @@ public class LoginPage extends BasePage{
     public boolean isCredentialsInvalidErrorDisplayed(){
         return waitForVisibility(invalidCredentialsError).isDisplayed();
     }
+
+    public boolean isSignInButtonEnabled(){
+        return waitForVisibility(signInButton).isEnabled();
+    }
 }
