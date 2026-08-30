@@ -46,16 +46,18 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    void shouldNotLoginWithEmptyEmail() {
+    void shouldRejectEmptyEmail(){
         loginPage.enterEmail("");
         loginPage.enterPassword(testUser.getPassword());
-        assertFalse(loginPage.isSignInButtonEnabled());
+        loginPage.clickSignIn();
+        assertFalse(loginPage.isEmailFieldValid());
     }
 
     @Test
-    void shouldNotLoginWithEmptyPassword() {
+    void shouldRejectEmptyPassword(){
         loginPage.enterEmail(testUser.getEmail());
         loginPage.enterPassword("");
-        assertFalse(loginPage.isSignInButtonEnabled());
+        loginPage.clickSignIn();
+        assertFalse(loginPage.isPasswordFieldValid());
     }
 }

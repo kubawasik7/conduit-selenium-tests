@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class BaseTest {
-    protected static final String BASE_URL = "https://demo.realworld.show/";
+    protected static final String BASE_URL = "https://realworld.app.is/";
     protected WebDriver driver;
 
     @BeforeEach
