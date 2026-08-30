@@ -40,8 +40,8 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    void shouldRejectLoginWithInvalidEmail() {
-        loginPage.login("test@invalid_mail.com", testUser.getPassword());
+    void shouldRejectLoginWithNonexistentEmail() {
+        loginPage.login("test@invalidmail.com", testUser.getPassword());
         assertTrue(loginPage.isCredentialsInvalidErrorDisplayed());
     }
 
