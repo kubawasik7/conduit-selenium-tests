@@ -64,4 +64,13 @@ public class LoginTests extends BaseTest {
         loginPage.enterPassword(user.getPassword());
         assertFalse(loginPage.isSignInButtonEnabled());
     }
+
+    @Test
+    void shouldNotLoginWithEmptyPassword() {
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = homePage.clickSignIn();
+        loginPage.enterEmail(user.getEmail());
+        loginPage.enterPassword("");
+        assertFalse(loginPage.isSignInButtonEnabled());
+    }
 }
