@@ -46,6 +46,12 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
+    void shouldRejectInvalidEmailFormat() {
+        loginPage.login("test@invalid_format_email.pl", testUser.getPassword());
+        assertFalse(loginPage.isEmailFieldValid());
+    }
+
+    @Test
     void shouldRejectEmptyEmail(){
         loginPage.enterEmail("");
         loginPage.enterPassword(testUser.getPassword());
