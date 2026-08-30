@@ -1,5 +1,6 @@
 package tests;
 
+import base.AuthenticatedTest;
 import base.BaseTest;
 import data.TestDataReader;
 import data.TestUser;
@@ -11,22 +12,11 @@ import pages.LoginPage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ArticleTests extends BaseTest {
-    private static TestUser testUser;
-
-    @BeforeAll
-    static void setUpTestData(){
-        testUser = TestDataReader.getTestUser();
-    }
-
+public class ArticleTests extends AuthenticatedTest {
     @Test
     void shouldOpenArticleSuccessfully(){
-        String article = "Middle-Out Compression: The Algorithm That Changed Everything";
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = homePage.clickSignIn();
-        loginPage.login(testUser.getEmail(), testUser.getPassword());
-        homePage = new HomePage(driver);
-        ArticlePage articlePage = homePage.clickArticle(article);
-        assertTrue(articlePage.isTitleDisplayed(article));
+        String articleTitle = "Middle-Out Compression: The Algorithm That Changed Everything";
+        ArticlePage articlePage = homePage.clickArticle(articleTitle);
+        assertTrue(articlePage.isTitleDisplayed(articleTitle));
     }
 }
