@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import static data.TestDataReader.getTestUser;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTests extends BaseTest {
@@ -55,4 +56,12 @@ public class LoginTests extends BaseTest {
         assertTrue(loginPage.isCredentialsInvalidErrorDisplayed());
     }
 
+    @Test
+    void shouldNotLoginWithEmptyEmail() {
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = homePage.clickSignIn();
+        loginPage.enterEmail("");
+        loginPage.enterPassword(user.getPassword());
+        assertFalse(loginPage.isSignInButtonEnabled());
+    }
 }
