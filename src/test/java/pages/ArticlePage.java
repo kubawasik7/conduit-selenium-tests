@@ -16,16 +16,32 @@ public class ArticlePage extends BasePage {
         return waitForVisibility(titleLocator).isDisplayed();
     }
 
-    public void favorite(){
+    public void favorite() {
         waitForClickable(favoriteButton).click();
+        waitUntilFavorited();
     }
 
-    public boolean isFavorited(){
+    public void unfavorite() {
+        waitForClickable(unfavoriteButton).click();
+        waitUntilUnfavorited();
+    }
+
+    public boolean isFavorited() {
+        wait.until(driver ->
+                !driver.findElements(favoriteButton).isEmpty()
+                        || !driver.findElements(unfavoriteButton).isEmpty()
+        );
+
         return !driver.findElements(unfavoriteButton).isEmpty();
     }
 
-    public void unfavorite(){
-        waitForClickable(unfavoriteButton).click();
+    public void waitUntilFavorited(){
+        wait.until(driver ->
+                !driver.findElements(unfavoriteButton).isEmpty());
     }
 
+    public void waitUntilUnfavorited(){
+        wait.until(driver ->
+                !driver.findElements(favoriteButton).isEmpty());
+    }
 }
