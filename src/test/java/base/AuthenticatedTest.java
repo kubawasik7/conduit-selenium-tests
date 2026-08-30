@@ -17,7 +17,7 @@ public class AuthenticatedTest extends BaseTest {
     }
 
     @BeforeEach
-    void setUp(){
+    void setUpAuthenticatedUser(){
         homePage = new HomePage(driver);
         LoginPage loginPage = homePage.clickSignIn();
         loginPage.login(testUser.getEmail(), testUser.getPassword());
