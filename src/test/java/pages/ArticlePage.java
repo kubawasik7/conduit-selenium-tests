@@ -23,4 +23,9 @@ public class ArticlePage extends BasePage {
     public boolean isFavorited(){
         return waitForVisibility(unfavoriteButton).isDisplayed();
     }
+
+    public void unfavorite(){
+        waitForClickable(unfavoriteButton).click();
+    }
+
 }
