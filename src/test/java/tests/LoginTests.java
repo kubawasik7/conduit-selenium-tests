@@ -12,12 +12,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTests extends BaseTest {
-    private static TestUser user;
+    private static TestUser testUser;
     private LoginPage loginPage;
 
     @BeforeAll
     static void setUpDataTest(){
-        user = TestDataReader.getTestUser();
+        testUser = TestDataReader.getTestUser();
     }
 
     @BeforeEach
@@ -28,33 +28,33 @@ public class LoginTests extends BaseTest {
 
     @Test
     void shouldLoginSuccessfully() {
-        loginPage.login(user.getEmail(), user.getPassword());
+        loginPage.login(testUser.getEmail(), testUser.getPassword());
         HomePage homePage = new HomePage(driver);
         assertTrue(homePage.isUserProfileDisplayed());
     }
 
     @Test
     void shouldRejectLoginWithInvalidPassword() {
-        loginPage.login(user.getEmail(), "invalid_password");
+        loginPage.login(testUser.getEmail(), "invalid_password");
         assertTrue(loginPage.isCredentialsInvalidErrorDisplayed());
     }
 
     @Test
     void shouldRejectLoginWithInvalidEmail() {
-        loginPage.login("test@invalid_mail.com", user.getPassword());
+        loginPage.login("test@invalid_mail.com", testUser.getPassword());
         assertTrue(loginPage.isCredentialsInvalidErrorDisplayed());
     }
 
     @Test
     void shouldNotLoginWithEmptyEmail() {
         loginPage.enterEmail("");
-        loginPage.enterPassword(user.getPassword());
+        loginPage.enterPassword(testUser.getPassword());
         assertFalse(loginPage.isSignInButtonEnabled());
     }
 
     @Test
     void shouldNotLoginWithEmptyPassword() {
-        loginPage.enterEmail(user.getEmail());
+        loginPage.enterEmail(testUser.getEmail());
         loginPage.enterPassword("");
         assertFalse(loginPage.isSignInButtonEnabled());
     }
