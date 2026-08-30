@@ -3,6 +3,7 @@ package tests;
 import base.BaseTest;
 import data.TestDataReader;
 import data.TestUser;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import pages.HomePage;
 import pages.LoginPage;
@@ -15,6 +16,13 @@ import static data.TestDataReader.getTestUser;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTests extends BaseTest {
+    private static TestUser user;
+
+    @BeforeAll
+    static void setUpDataTest(){
+        user = TestDataReader.getTestUser();
+    }
+
     @Test
     void shouldOpenLoginPageSuccessfully() {
         HomePage homePage = new HomePage(driver);
@@ -24,7 +32,6 @@ public class LoginTests extends BaseTest {
 
     @Test
     void shouldLoginSuccessfully() {
-        TestUser user = TestDataReader.getTestUser();
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = homePage.clickSignIn();
         loginPage.login(user.getEmail(), user.getPassword());
@@ -34,7 +41,6 @@ public class LoginTests extends BaseTest {
 
     @Test
     void shouldRejectLoginWithInvalidPassword() {
-        TestUser user = TestDataReader.getTestUser();
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = homePage.clickSignIn();
         loginPage.login(user.getEmail(), "invalid_password");
