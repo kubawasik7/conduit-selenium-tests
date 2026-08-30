@@ -27,11 +27,18 @@ public class LoginTests extends BaseTest {
         TestUser user = TestDataReader.getTestUser();
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = homePage.clickSignIn();
-        loginPage.enterEmail(user.getEmail());
-        loginPage.enterPassword(user.getPassword());
-        loginPage.clickSignIn();
+        loginPage.login(user.getEmail(), user.getPassword());
         homePage = new HomePage(driver);
         assertTrue(homePage.isUserProfileDisplayed());
+    }
+
+    @Test
+    void shouldRejectLoginWithInvalidPassword() {
+        TestUser user = TestDataReader.getTestUser();
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = homePage.clickSignIn();
+        loginPage.login(user.getEmail(), "invalid_password");
+        assertTrue(loginPage.isCredentialsInvalidErrorDisplayed());
     }
 
 }
