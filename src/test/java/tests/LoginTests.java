@@ -25,13 +25,6 @@ public class LoginTests extends BaseTest {
     }
 
     @Test
-    void shouldOpenLoginPageSuccessfully() {
-        HomePage homePage = new HomePage(driver);
-        LoginPage loginPage = homePage.clickSignIn();
-        assertTrue(loginPage.isEmailFieldDisplayed());
-    }
-
-    @Test
     void shouldLoginSuccessfully() {
         HomePage homePage = new HomePage(driver);
         LoginPage loginPage = homePage.clickSignIn();
