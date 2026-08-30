@@ -21,7 +21,7 @@ public class ArticlePage extends BasePage {
     }
 
     public boolean isFavorited(){
-        return waitForVisibility(unfavoriteButton).isDisplayed();
+        return !driver.findElements(unfavoriteButton).isEmpty();
     }
 
     public void unfavorite(){
