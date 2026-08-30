@@ -18,7 +18,7 @@ public class HomePage extends BasePage{
 
     public ArticlePage clickArticle(String title){
         By articleLink =
-                By.xpath("//a[contains(@class, 'preview-link')][.//h1[normalize-space()='" + title + "']");
+                By.xpath("//a[contains(@class, 'preview-link')][.//h1[normalize-space()='" + title + "']]");
         waitForClickable(articleLink).click();
         return new ArticlePage(driver);
     }
