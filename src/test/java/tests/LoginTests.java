@@ -47,4 +47,12 @@ public class LoginTests extends BaseTest {
         assertTrue(loginPage.isCredentialsInvalidErrorDisplayed());
     }
 
+    @Test
+    void shouldRejectLoginWithInvalidEmail() {
+        HomePage homePage = new HomePage(driver);
+        LoginPage loginPage = homePage.clickSignIn();
+        loginPage.login("test@invalid_mail.com", user.getPassword());
+        assertTrue(loginPage.isCredentialsInvalidErrorDisplayed());
+    }
+
 }
