@@ -16,7 +16,7 @@ public class LoginTests extends BaseTest {
     private LoginPage loginPage;
 
     @BeforeAll
-    static void setUpDataTest(){
+    static void setUpTestData(){
         testUser = TestDataReader.getTestUser();
     }
 
