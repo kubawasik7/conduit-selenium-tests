@@ -29,7 +29,8 @@ public class LoginTests extends BaseTest {
         LoginPage loginPage = homePage.clickSignIn();
         loginPage.enterEmail(user.getEmail());
         loginPage.enterPassword(user.getPassword());
-        homePage = loginPage.clickSignIn();
+        loginPage.clickSignIn();
+        homePage = new HomePage(driver);
         assertTrue(homePage.isUserProfileDisplayed());
     }
 

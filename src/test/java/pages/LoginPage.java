@@ -20,9 +20,8 @@ public class LoginPage extends BasePage{
         waitForVisibility(passwordInput).sendKeys(password);
     }
 
-    public HomePage clickSignIn(){
+    public void clickSignIn(){
         waitForClickable(signInButton).click();
-        return new HomePage(driver);
     }
 
     public boolean isEmailFieldDisplayed(){
