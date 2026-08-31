@@ -7,6 +7,7 @@ public class ArticlePage extends BasePage {
     private By favoriteButton = By.cssSelector("button[fx-action$='/favorite']");
     private By unfavoriteButton = By.cssSelector("button[fx-action$='/unfavorite']");
     private By editButton = By.xpath("//a[normalize-space()='Edit Article']");
+    private By deleteButton = By.xpath("//button[normalize-space()='Delete Article']");
 
     public ArticlePage(WebDriver driver) {
         super(driver);
@@ -49,5 +50,10 @@ public class ArticlePage extends BasePage {
     public ArticleEditorPage clickEditArticle() {
         waitForClickable(editButton).click();
         return new ArticleEditorPage(driver);
+    }
+
+    public HomePage clickDeleteArticle() {
+        waitForClickable(deleteButton).click();
+        return new HomePage(driver);
     }
 }
