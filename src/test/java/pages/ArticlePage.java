@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class ArticlePage extends BasePage {
     private By favoriteButton = By.cssSelector("button[fx-action$='/favorite']");
     private By unfavoriteButton = By.cssSelector("button[fx-action$='/unfavorite']");
+    private By editButton = By.xpath("//a[normalize-space()='Edit Article']");
 
     public ArticlePage(WebDriver driver) {
         super(driver);
@@ -43,5 +44,10 @@ public class ArticlePage extends BasePage {
     public void waitUntilUnfavorited(){
         wait.until(driver ->
                 !driver.findElements(favoriteButton).isEmpty());
+    }
+
+    public ArticleEditorPage clickEditArticle() {
+        waitForClickable(editButton).click();
+        return new ArticleEditorPage(driver);
     }
 }
