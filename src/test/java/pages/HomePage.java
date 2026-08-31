@@ -24,9 +24,9 @@ public class HomePage extends BasePage{
         return new ArticlePage(driver);
     }
 
-    public NewArticlePage clickNewArticle(){
+    public ArticleEditorPage clickNewArticle(){
         waitForClickable(newArticleLink).click();
-        return new NewArticlePage(driver);
+        return new ArticleEditorPage(driver);
     }
 
     public boolean isUserProfileDisplayed(){

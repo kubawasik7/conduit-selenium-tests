@@ -4,14 +4,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
-public class NewArticlePage extends BasePage{
+public class ArticleEditorPage extends BasePage{
     private By titleInput = By.name("title");
     private By descriptionInput = By.cssSelector("input[name='description']");
     private By bodyInput = By.name("body");
     private By tagsInput = By.className("tag-input-field");
     private By publishButton = By.xpath("//button[normalize-space()='Publish Article']");
 
-    public NewArticlePage(WebDriver driver) {
+    public ArticleEditorPage(WebDriver driver) {
         super(driver);
     }
 
@@ -31,7 +31,7 @@ public class NewArticlePage extends BasePage{
         waitForVisibility(tagsInput).sendKeys(tags, Keys.ENTER);
     }
 
-    public ArticlePage clickPublishButton(){
+    public ArticlePage submitArticle(){
         waitForClickable(publishButton).click();
         return new ArticlePage(driver);
     }
