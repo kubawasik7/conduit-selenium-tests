@@ -3,6 +3,7 @@ package tests;
 import base.AuthenticatedTest;
 import org.junit.jupiter.api.Test;
 import pages.ArticlePage;
+import pages.NewArticlePage;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,5 +41,17 @@ public class ArticleTests extends AuthenticatedTest {
         articlePage.unfavorite();
 
         assertFalse(articlePage.isFavorited());
+    }
+
+    @Test
+    void shouldCreateArticleSuccessfully(){
+        String articleTitle = "Selenium test article " + System.currentTimeMillis();
+        NewArticlePage newArticlePage = homePage.clickNewArticle();
+        newArticlePage.enterTitle(articleTitle);
+        newArticlePage.enterDescription("test description");
+        newArticlePage.enterBody("test body");
+        newArticlePage.enterTags("test tag");
+        ArticlePage articlePage = newArticlePage.clickPublishButton();
+        assertTrue(articlePage.isTitleDisplayed(articleTitle));
     }
 }
