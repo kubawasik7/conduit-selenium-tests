@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class NewArticlePage extends BasePage{
     private By titleInput = By.name("title");
-    private By descriptionInput = By.name("description");
+    private By descriptionInput = By.cssSelector("input[name='description']");
     private By bodyInput = By.name("body");
     private By tagsInput = By.className("tag-input-field");
     private By publishButton = By.xpath("//button[normalize-space()='Publish Article']");
