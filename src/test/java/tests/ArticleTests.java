@@ -54,4 +54,24 @@ public class ArticleTests extends AuthenticatedTest {
         ArticlePage articlePage = articleEditorPage.submitArticle();
         assertTrue(articlePage.isTitleDisplayed(articleTitle));
     }
+
+    @Test
+    void shouldEditArticleSuccessfully(){
+        String uniqueId = String.valueOf(System.currentTimeMillis());
+        String articleTitle = "Selenium test article " + uniqueId;
+        String updatedTitle = "Updated Selenium test article " + uniqueId;
+
+        ArticleEditorPage editorPage = homePage.clickNewArticle();
+        editorPage.enterTitle(articleTitle);
+        editorPage.enterDescription("test description");
+        editorPage.enterBody("test body");
+        editorPage.enterTags("test tag");
+        ArticlePage articlePage = editorPage.submitArticle();
+
+        ArticleEditorPage editPage = articlePage.clickEditArticle();
+        editPage.updateTitle(updatedTitle);
+
+        articlePage = editPage.submitArticle();
+        assertTrue(articlePage.isTitleDisplayed(updatedTitle));
+    }
 }
