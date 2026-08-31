@@ -4,6 +4,7 @@ import base.AuthenticatedTest;
 import org.junit.jupiter.api.Test;
 import pages.ArticlePage;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ArticleTests extends AuthenticatedTest {
@@ -25,5 +26,19 @@ public class ArticleTests extends AuthenticatedTest {
 
         articlePage.favorite();
         assertTrue(articlePage.isFavorited());
+    }
+
+    @Test
+    void shouldUnfavoriteArticleSuccessfully(){
+        String articleTitle = "Middle-Out Compression: The Algorithm That Changed Everything";
+        ArticlePage articlePage = homePage.clickArticle(articleTitle);
+
+        if (!articlePage.isFavorited()) {
+            articlePage.favorite();
+        }
+
+        articlePage.unfavorite();
+
+        assertFalse(articlePage.isFavorited());
     }
 }
