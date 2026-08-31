@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class ArticleEditorPage extends BasePage{
     private By titleInput = By.name("title");
@@ -34,5 +35,11 @@ public class ArticleEditorPage extends BasePage{
     public ArticlePage submitArticle(){
         waitForClickable(publishButton).click();
         return new ArticlePage(driver);
+    }
+
+    public void updateTitle(String title){
+        WebElement titleField = waitForVisibility(titleInput);
+        titleField.clear();
+        titleField.sendKeys(title);
     }
 }
