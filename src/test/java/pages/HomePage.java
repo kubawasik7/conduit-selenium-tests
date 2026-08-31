@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class HomePage extends BasePage{
     private By signInLink = By.cssSelector("a[href='/login']");
     private By userLink = By.cssSelector("a[href^='/profile/']");
+    private By newArticleLink = By.cssSelector("a[href='/editor']");
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -21,6 +22,11 @@ public class HomePage extends BasePage{
                 By.xpath("//a[contains(@class, 'preview-link')][.//h1[normalize-space()='" + title + "']]");
         waitForClickable(articleLink).click();
         return new ArticlePage(driver);
+    }
+
+    public NewArticlePage clickNewArticle(){
+        waitForClickable(newArticleLink).click();
+        return new NewArticlePage(driver);
     }
 
     public boolean isUserProfileDisplayed(){
