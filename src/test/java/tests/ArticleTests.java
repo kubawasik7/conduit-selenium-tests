@@ -51,7 +51,7 @@ public class ArticleTests extends AuthenticatedTest {
         articleEditorPage.enterDescription("test description");
         articleEditorPage.enterBody("test body");
         articleEditorPage.enterTags("test tag");
-        ArticlePage articlePage = articleEditorPage.clickPublishButton();
+        ArticlePage articlePage = articleEditorPage.submitArticle();
         assertTrue(articlePage.isTitleDisplayed(articleTitle));
     }
 }
