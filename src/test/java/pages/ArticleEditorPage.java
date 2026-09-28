@@ -6,44 +6,44 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ArticleEditorPage extends BasePage{
-    private By titleInput = By.name("title");
-    private By descriptionInput = By.cssSelector("input[name='description']");
-    private By bodyInput = By.name("body");
-    private By tagsInput = By.className("tag-input-field");
-    private By publishButton = By.xpath("//button[normalize-space()='Publish Article']");
+    private static final By TITLE_INPUT = By.name("title");
+    private static final By DESCRIPTION_INPUT = By.cssSelector("input[name='description']");
+    private static final By BODY_INPUT = By.name("body");
+    private static final By TAGS_INPUT = By.className("tag-input-field");
+    private static final By PUBLISH_BUTTON = By.xpath("//button[normalize-space()='Publish Article']");
 
     public ArticleEditorPage(WebDriver driver) {
         super(driver);
     }
 
-    public void enterTitle(String title){
-        waitForVisibility(titleInput).sendKeys(title);
+    public void enterTitle(String title) {
+        waitForVisibility(TITLE_INPUT).sendKeys(title);
     }
 
-    public void enterDescription(String description){
-        waitForVisibility(descriptionInput).sendKeys(description);
+    public void enterDescription(String description) {
+        waitForVisibility(DESCRIPTION_INPUT).sendKeys(description);
     }
 
-    public void enterBody(String body){
-        waitForVisibility(bodyInput).sendKeys(body);
+    public void enterBody(String body) {
+        waitForVisibility(BODY_INPUT).sendKeys(body);
     }
 
-    public void enterTags(String tags){
-        waitForVisibility(tagsInput).sendKeys(tags, Keys.ENTER);
+    public void enterTags(String tags) {
+        waitForVisibility(TAGS_INPUT).sendKeys(tags, Keys.ENTER);
     }
 
-    public ArticlePage submitArticle(){
-        waitForClickable(publishButton).click();
-        return new ArticlePage(driver);
-    }
-
-    public void updateTitle(String title){
-        WebElement titleField = waitForVisibility(titleInput);
+    public void updateTitle(String title) {
+        WebElement titleField = waitForVisibility(TITLE_INPUT);
         titleField.clear();
         titleField.sendKeys(title);
     }
 
-    public void clickPublishArticle(){
-        waitForClickable(publishButton).click();
+    public ArticlePage submitArticle() {
+        waitForClickable(PUBLISH_BUTTON).click();
+        return new ArticlePage(driver);
+    }
+
+    public void clickPublishArticle() {
+        waitForClickable(PUBLISH_BUTTON).click();
     }
 }

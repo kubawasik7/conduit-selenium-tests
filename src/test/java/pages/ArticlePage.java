@@ -4,20 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class ArticlePage extends BasePage {
-    private static final By FAVORITE_BUTTON =
-            By.cssSelector("button[fx-action$='/favorite']");
-    private static final By UNFAVORITE_BUTTON =
-            By.cssSelector("button[fx-action$='/unfavorite']");
-    private static final By EDIT_BUTTON =
-            By.xpath("//a[normalize-space()='Edit Article']");
-    private static final By DELETE_BUTTON =
-            By.xpath("//button[normalize-space()='Delete Article']");
-    private static final By COMMENT_TEXT_AREA =
-            By.name("body");
-    private static final By POST_COMMENT_BUTTON =
-            By.xpath("//button[normalize-space()='Post Comment']");
-    private static final By COMMENT_ERROR =
-            By.xpath("//div[@id='comment-list'][contains(., 'Comment body is required')]");
+    private static final By FAVORITE_BUTTON = By.cssSelector("button[fx-action$='/favorite']");
+    private static final By UNFAVORITE_BUTTON = By.cssSelector("button[fx-action$='/unfavorite']");
+    private static final By EDIT_BUTTON = By.xpath("//a[normalize-space()='Edit Article']");
+    private static final By DELETE_BUTTON = By.xpath("//button[normalize-space()='Delete Article']");
+    private static final By COMMENT_TEXT_AREA = By.name("body");
+    private static final By POST_COMMENT_BUTTON = By.xpath("//button[normalize-space()='Post Comment']");
+    private static final By COMMENT_ERROR = By.xpath("//div[@id='comment-list'][contains(., 'Comment body is required')]");
 
     public ArticlePage(WebDriver driver) {
         super(driver);
