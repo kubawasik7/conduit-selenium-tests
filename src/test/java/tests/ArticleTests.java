@@ -1,4 +1,3 @@
-
 package tests;
 
 import base.AuthenticatedTest;
@@ -53,88 +52,69 @@ public class ArticleTests extends AuthenticatedTest {
 
     @Test
     void shouldCreateArticleSuccessfully() {
-        String articleTitle = ARTICLE_TITLE + " " + System.currentTimeMillis();
+        String articleTitle = generateUniqueArticleTitle();
 
-        ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
-        articleEditorPage.enterTitle(articleTitle);
-        articleEditorPage.enterDescription(ARTICLE_DESCRIPTION);
-        articleEditorPage.enterBody(ARTICLE_BODY);
-        articleEditorPage.enterTags(ARTICLE_TAG);
-
-        ArticlePage articlePage = articleEditorPage.submitArticle();
+        ArticlePage articlePage = createArticle(articleTitle);
 
         assertTrue(articlePage.isTitleDisplayed(articleTitle));
     }
 
     @Test
     void shouldNotCreateArticleWithoutTitle() {
-        ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
+        ArticleEditorPage editorPage = homePage.clickNewArticle();
 
-        articleEditorPage.enterDescription(ARTICLE_DESCRIPTION);
-        articleEditorPage.enterBody(ARTICLE_BODY);
-        articleEditorPage.enterTags(ARTICLE_TAG);
-        articleEditorPage.clickPublishArticle();
+        editorPage.enterDescription(ARTICLE_DESCRIPTION);
+        editorPage.enterBody(ARTICLE_BODY);
+        editorPage.enterTags(ARTICLE_TAG);
+        editorPage.clickPublishArticle();
 
         assertTrue(driver.getCurrentUrl().contains("/editor"));
     }
 
     @Test
     void shouldNotCreateArticleWithoutDescription() {
-        ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
+        ArticleEditorPage editorPage = homePage.clickNewArticle();
 
-        articleEditorPage.enterTitle(EXISTING_ARTICLE_TITLE);
-        articleEditorPage.enterBody(ARTICLE_BODY);
-        articleEditorPage.enterTags(ARTICLE_TAG);
-        articleEditorPage.clickPublishArticle();
+        editorPage.enterTitle(EXISTING_ARTICLE_TITLE);
+        editorPage.enterBody(ARTICLE_BODY);
+        editorPage.enterTags(ARTICLE_TAG);
+        editorPage.clickPublishArticle();
 
         assertTrue(driver.getCurrentUrl().contains("/editor"));
     }
 
     @Test
     void shouldNotCreateArticleWithoutBody() {
-        ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
+        ArticleEditorPage editorPage = homePage.clickNewArticle();
 
-        articleEditorPage.enterTitle(EXISTING_ARTICLE_TITLE);
-        articleEditorPage.enterDescription(ARTICLE_DESCRIPTION);
-        articleEditorPage.enterTags(ARTICLE_TAG);
-        articleEditorPage.clickPublishArticle();
+        editorPage.enterTitle(EXISTING_ARTICLE_TITLE);
+        editorPage.enterDescription(ARTICLE_DESCRIPTION);
+        editorPage.enterTags(ARTICLE_TAG);
+        editorPage.clickPublishArticle();
 
         assertTrue(driver.getCurrentUrl().contains("/editor"));
     }
 
     @Test
     void shouldEditArticleSuccessfully() {
-        String uniqueId = String.valueOf(System.currentTimeMillis());
-        String articleTitle = ARTICLE_TITLE + uniqueId;
-        String updatedTitle = "Updated Selenium test article " + uniqueId;
+        String articleTitle = generateUniqueArticleTitle();
+        String updatedTitle = "Updated Selenium test article " + System.currentTimeMillis();
 
-        ArticleEditorPage editorPage = homePage.clickNewArticle();
-        editorPage.enterTitle(articleTitle);
-        editorPage.enterDescription(ARTICLE_DESCRIPTION);
-        editorPage.enterBody(ARTICLE_BODY);
-        editorPage.enterTags(ARTICLE_TAG);
+        ArticlePage articlePage = createArticle(articleTitle);
 
-        ArticlePage articlePage = editorPage.submitArticle();
+        ArticleEditorPage editorPage = articlePage.clickEditArticle();
+        editorPage.updateTitle(updatedTitle);
 
-        ArticleEditorPage editPage = articlePage.clickEditArticle();
-        editPage.updateTitle(updatedTitle);
-
-        articlePage = editPage.submitArticle();
+        articlePage = editorPage.submitArticle();
 
         assertTrue(articlePage.isTitleDisplayed(updatedTitle));
     }
 
     @Test
     void shouldDeleteArticleSuccessfully() {
-        String articleTitle = ARTICLE_TITLE + " " + System.currentTimeMillis();
+        String articleTitle = generateUniqueArticleTitle();
 
-        ArticleEditorPage editorPage = homePage.clickNewArticle();
-        editorPage.enterTitle(articleTitle);
-        editorPage.enterDescription(ARTICLE_DESCRIPTION);
-        editorPage.enterBody(ARTICLE_BODY);
-        editorPage.enterTags(ARTICLE_TAG);
-
-        ArticlePage articlePage = editorPage.submitArticle();
+        ArticlePage articlePage = createArticle(articleTitle);
 
         homePage = articlePage.clickDeleteArticle();
 
@@ -144,7 +124,7 @@ public class ArticleTests extends AuthenticatedTest {
     @Test
     void shouldAddCommentSuccessfully() {
         ArticlePage articlePage = homePage.clickArticle(EXISTING_ARTICLE_TITLE);
-        String comment = "Selenium test comment " + System.currentTimeMillis();
+        String comment = generateUniqueComment();
 
         articlePage.enterComment(comment);
         articlePage.clickPostComment();
@@ -155,7 +135,7 @@ public class ArticleTests extends AuthenticatedTest {
     @Test
     void shouldDeleteCommentSuccessfully() {
         ArticlePage articlePage = homePage.clickArticle(EXISTING_ARTICLE_TITLE);
-        String comment = "Selenium test comment " + System.currentTimeMillis();
+        String comment = generateUniqueComment();
 
         articlePage.enterComment(comment);
         articlePage.clickPostComment();
@@ -174,5 +154,24 @@ public class ArticleTests extends AuthenticatedTest {
         articlePage.clickPostComment();
 
         assertTrue(articlePage.isCommentErrorDisplayed());
+    }
+
+    private ArticlePage createArticle(String title) {
+        ArticleEditorPage editorPage = homePage.clickNewArticle();
+
+        editorPage.enterTitle(title);
+        editorPage.enterDescription(ARTICLE_DESCRIPTION);
+        editorPage.enterBody(ARTICLE_BODY);
+        editorPage.enterTags(ARTICLE_TAG);
+
+        return editorPage.submitArticle();
+    }
+
+    private String generateUniqueArticleTitle() {
+        return ARTICLE_TITLE + " " + System.currentTimeMillis();
+    }
+
+    private String generateUniqueComment() {
+        return "Selenium test comment " + System.currentTimeMillis();
     }
 }
