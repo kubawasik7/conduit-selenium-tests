@@ -4,93 +4,108 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class ArticlePage extends BasePage {
-    private By favoriteButton = By.cssSelector("button[fx-action$='/favorite']");
-    private By unfavoriteButton = By.cssSelector("button[fx-action$='/unfavorite']");
-    private By editButton = By.xpath("//a[normalize-space()='Edit Article']");
-    private By deleteButton = By.xpath("//button[normalize-space()='Delete Article']");
-    private By commentTextArea = By.name("body");
-    private By postCommentButton = By.xpath("//button[normalize-space()='Post Comment']");
-    private By commentError = By.xpath("//div[@id='comment-list'][contains(., 'Comment body is required')]");
+    private static final By FAVORITE_BUTTON =
+            By.cssSelector("button[fx-action$='/favorite']");
+    private static final By UNFAVORITE_BUTTON =
+            By.cssSelector("button[fx-action$='/unfavorite']");
+    private static final By EDIT_BUTTON =
+            By.xpath("//a[normalize-space()='Edit Article']");
+    private static final By DELETE_BUTTON =
+            By.xpath("//button[normalize-space()='Delete Article']");
+    private static final By COMMENT_TEXT_AREA =
+            By.name("body");
+    private static final By POST_COMMENT_BUTTON =
+            By.xpath("//button[normalize-space()='Post Comment']");
+    private static final By COMMENT_ERROR =
+            By.xpath("//div[@id='comment-list'][contains(., 'Comment body is required')]");
 
     public ArticlePage(WebDriver driver) {
         super(driver);
     }
 
-    public boolean isTitleDisplayed(String title){
-        By titleLocator = By.xpath("//h1[normalize-space()='" + title + "']");
-        return waitForVisibility(titleLocator).isDisplayed();
+    public boolean isTitleDisplayed(String title) {
+        return waitForVisibility(articleTitle(title)).isDisplayed();
     }
 
     public void favorite() {
-        waitForClickable(favoriteButton).click();
+        waitForClickable(FAVORITE_BUTTON).click();
         waitUntilFavorited();
     }
 
     public void unfavorite() {
-        waitForClickable(unfavoriteButton).click();
+        waitForClickable(UNFAVORITE_BUTTON).click();
         waitUntilUnfavorited();
     }
 
     public boolean isFavorited() {
         wait.until(driver ->
-                !driver.findElements(favoriteButton).isEmpty()
-                        || !driver.findElements(unfavoriteButton).isEmpty()
+                !driver.findElements(FAVORITE_BUTTON).isEmpty()
+                        || !driver.findElements(UNFAVORITE_BUTTON).isEmpty()
         );
 
-        return !driver.findElements(unfavoriteButton).isEmpty();
+        return !driver.findElements(UNFAVORITE_BUTTON).isEmpty();
     }
 
-    public void waitUntilFavorited(){
+    public void waitUntilFavorited() {
         wait.until(driver ->
-                !driver.findElements(unfavoriteButton).isEmpty());
+                !driver.findElements(UNFAVORITE_BUTTON).isEmpty());
     }
 
-    public void waitUntilUnfavorited(){
+    public void waitUntilUnfavorited() {
         wait.until(driver ->
-                !driver.findElements(favoriteButton).isEmpty());
+                !driver.findElements(FAVORITE_BUTTON).isEmpty());
     }
 
     public ArticleEditorPage clickEditArticle() {
-        waitForClickable(editButton).click();
+        waitForClickable(EDIT_BUTTON).click();
         return new ArticleEditorPage(driver);
     }
 
     public HomePage clickDeleteArticle() {
-        waitForClickable(deleteButton).click();
+        waitForClickable(DELETE_BUTTON).click();
         return new HomePage(driver);
     }
 
-    public void enterComment(String comment){
-        waitForVisibility(commentTextArea).sendKeys(comment);
+    public void enterComment(String comment) {
+        waitForVisibility(COMMENT_TEXT_AREA).sendKeys(comment);
     }
 
     public void clickPostComment() {
-        waitForClickable(postCommentButton).click();
+        waitForClickable(POST_COMMENT_BUTTON).click();
     }
 
-    public boolean isCommentDisplayed(String comment){
-        By commentLocator = By.xpath("//p[contains(@class, 'card-text')][normalize-space()='" + comment + "']");
-
+    public boolean isCommentDisplayed(String comment) {
         return wait.until(driver ->
-                !driver.findElements(commentLocator).isEmpty());
+                !driver.findElements(comment(comment)).isEmpty());
     }
 
-    public void deleteComment(String comment){
-        By deleteCommentButton = By.xpath(
+    public void deleteComment(String comment) {
+        waitForClickable(deleteCommentButton(comment)).click();
+    }
+
+    public boolean isCommentRemoved(String comment) {
+        return wait.until(driver ->
+                driver.findElements(comment(comment)).isEmpty());
+    }
+
+    public boolean isCommentErrorDisplayed() {
+        return waitForVisibility(COMMENT_ERROR).isDisplayed();
+    }
+
+    private By articleTitle(String title) {
+        return By.xpath("//h1[normalize-space()='" + title + "']");
+    }
+
+    private By comment(String comment) {
+        return By.xpath(
+                "//p[contains(@class, 'card-text')][normalize-space()='" + comment + "']"
+        );
+    }
+
+    private By deleteCommentButton(String comment) {
+        return By.xpath(
                 "//p[contains(@class, 'card-text')][normalize-space()='" + comment + "']" +
                         "/ancestor::div[contains(@class, 'card')]//i[@fx-method='DELETE']"
         );
-
-        waitForClickable(deleteCommentButton).click();
-    }
-
-    public boolean isCommentRemoved(String comment){
-        By commentLocator = By.xpath("//p[contains(@class, 'card-text')][normalize-space()='" + comment + "']");
-        return wait.until(driver ->
-                driver.findElements(commentLocator).isEmpty());
-    }
-
-    public boolean isCommentErrorDisplayed(){
-        return waitForVisibility(commentError).isDisplayed();
     }
 }
