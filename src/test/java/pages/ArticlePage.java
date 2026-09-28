@@ -8,6 +8,8 @@ public class ArticlePage extends BasePage {
     private By unfavoriteButton = By.cssSelector("button[fx-action$='/unfavorite']");
     private By editButton = By.xpath("//a[normalize-space()='Edit Article']");
     private By deleteButton = By.xpath("//button[normalize-space()='Delete Article']");
+    private By commentTextArea = By.name("body");
+    private By postCommentButton = By.xpath("//button[normalize-space()='Post Comment']");
 
     public ArticlePage(WebDriver driver) {
         super(driver);
@@ -55,5 +57,20 @@ public class ArticlePage extends BasePage {
     public HomePage clickDeleteArticle() {
         waitForClickable(deleteButton).click();
         return new HomePage(driver);
+    }
+
+    public void enterComment(String comment){
+        waitForVisibility(commentTextArea).sendKeys(comment);
+    }
+
+    public void clickPostComment() {
+        waitForClickable(postCommentButton).click();
+    }
+
+    public boolean isCommentDisplayed(String comment){
+        By commentLocator = By.xpath("//p[contains(@class, 'card-text')][normalize-space()='" + comment + "']");
+
+        return wait.until(driver ->
+                !driver.findElements(commentLocator).isEmpty());
     }
 }
