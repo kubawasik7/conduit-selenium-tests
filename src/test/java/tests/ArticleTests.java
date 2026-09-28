@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ArticleTests extends AuthenticatedTest {
     private static final String EXISTING_ARTICLE_TITLE =
             "Middle-Out Compression: The Algorithm That Changed Everything";
+    private static final String ARTICLE_TITLE = "Selenium test article";
     private static final String ARTICLE_DESCRIPTION = "example description";
     private static final String ARTICLE_BODY = "example body";
     private static final String ARTICLE_TAG = "example tag";
@@ -63,8 +64,32 @@ public class ArticleTests extends AuthenticatedTest {
     void shouldNotCreateArticleWithoutTitle(){
         ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
 
-        articleEditorPage.enterDescription(ARTICLE_DESCRIPTION);
+        articleEditorPage.enterDescription(ARTICLE_TITLE);
         articleEditorPage.enterBody(ARTICLE_BODY);
+        articleEditorPage.enterTags(ARTICLE_TAG);
+        articleEditorPage.clickPublishArticle();
+
+        assertTrue(driver.getCurrentUrl().contains("/editor"));
+    }
+
+    @Test
+    void shouldNotCreateArticleWithoutDescription(){
+        ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
+
+        articleEditorPage.enterTitle(EXISTING_ARTICLE_TITLE);
+        articleEditorPage.enterBody(ARTICLE_BODY);
+        articleEditorPage.enterTags(ARTICLE_TAG);
+        articleEditorPage.clickPublishArticle();
+
+        assertTrue(driver.getCurrentUrl().contains("/editor"));
+    }
+
+    @Test
+    void shouldNotCreateArticleWithoutBody(){
+        ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
+
+        articleEditorPage.enterTitle(EXISTING_ARTICLE_TITLE);
+        articleEditorPage.enterDescription(ARTICLE_DESCRIPTION);
         articleEditorPage.enterTags(ARTICLE_TAG);
         articleEditorPage.clickPublishArticle();
 
