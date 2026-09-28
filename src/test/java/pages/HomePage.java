@@ -32,4 +32,11 @@ public class HomePage extends BasePage{
     public boolean isUserProfileDisplayed(){
         return waitForVisibility(userLink).isDisplayed();
     }
+
+    public boolean isArticleDisplayed(String title) {
+        By articleLocator =
+                By.xpath("//a[contains(@class, 'preview-link')][.//h1[normalize-space()='" + title + "']]");
+
+        return !driver.findElements(articleLocator).isEmpty();
+    }
 }

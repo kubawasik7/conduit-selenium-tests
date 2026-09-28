@@ -91,5 +91,6 @@ public class ArticleTests extends AuthenticatedTest {
         editorPage.enterTags(ARTICLE_TAG);
         ArticlePage articlePage = editorPage.submitArticle();
         homePage = articlePage.clickDeleteArticle();
+        assertFalse(homePage.isArticleDisplayed(articleTitle));
     }
 }
