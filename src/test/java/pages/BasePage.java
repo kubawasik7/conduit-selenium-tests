@@ -24,5 +24,4 @@ public class BasePage {
     protected WebElement waitForClickable(By locator){
         return wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
-
 }
