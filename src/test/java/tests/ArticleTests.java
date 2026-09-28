@@ -50,21 +50,20 @@ public class ArticleTests extends AuthenticatedTest {
 
     @Test
     void shouldCreateArticleSuccessfully(){
-        String articleTitle = "Selenium test article " + System.currentTimeMillis();
         ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
-        articleEditorPage.enterTitle(articleTitle);
+        articleEditorPage.enterTitle(ARTICLE_TITLE);
         articleEditorPage.enterDescription(ARTICLE_DESCRIPTION);
         articleEditorPage.enterBody(ARTICLE_BODY);
         articleEditorPage.enterTags(ARTICLE_TAG);
         ArticlePage articlePage = articleEditorPage.submitArticle();
-        assertTrue(articlePage.isTitleDisplayed(articleTitle));
+        assertTrue(articlePage.isTitleDisplayed(ARTICLE_TITLE));
     }
 
     @Test
     void shouldNotCreateArticleWithoutTitle(){
         ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
 
-        articleEditorPage.enterDescription(ARTICLE_TITLE);
+        articleEditorPage.enterDescription(ARTICLE_DESCRIPTION);
         articleEditorPage.enterBody(ARTICLE_BODY);
         articleEditorPage.enterTags(ARTICLE_TAG);
         articleEditorPage.clickPublishArticle();
@@ -99,11 +98,10 @@ public class ArticleTests extends AuthenticatedTest {
     @Test
     void shouldEditArticleSuccessfully(){
         String uniqueId = String.valueOf(System.currentTimeMillis());
-        String articleTitle = "Selenium test article " + uniqueId;
         String updatedTitle = "Updated Selenium test article " + uniqueId;
 
         ArticleEditorPage editorPage = homePage.clickNewArticle();
-        editorPage.enterTitle(articleTitle);
+        editorPage.enterTitle(ARTICLE_TITLE);
         editorPage.enterDescription(ARTICLE_DESCRIPTION);
         editorPage.enterBody(ARTICLE_BODY);
         editorPage.enterTags(ARTICLE_TAG);
@@ -119,16 +117,15 @@ public class ArticleTests extends AuthenticatedTest {
     @Test
     void shouldDeleteArticleSuccessfully(){
         String uniqueId = String.valueOf(System.currentTimeMillis());
-        String articleTitle = "Selenium test article " + uniqueId;
 
         ArticleEditorPage editorPage = homePage.clickNewArticle();
-        editorPage.enterTitle(articleTitle);
+        editorPage.enterTitle(ARTICLE_TITLE + uniqueId);
         editorPage.enterDescription(ARTICLE_DESCRIPTION);
         editorPage.enterBody(ARTICLE_BODY);
         editorPage.enterTags(ARTICLE_TAG);
         ArticlePage articlePage = editorPage.submitArticle();
         homePage = articlePage.clickDeleteArticle();
-        assertFalse(homePage.isArticleDisplayed(articleTitle));
+        assertFalse(homePage.isArticleDisplayed(ARTICLE_TITLE + uniqueId));
     }
 
     @Test
