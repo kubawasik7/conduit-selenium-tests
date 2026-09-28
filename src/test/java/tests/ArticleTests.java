@@ -60,6 +60,18 @@ public class ArticleTests extends AuthenticatedTest {
     }
 
     @Test
+    void shouldNotCreateArticleWithoutTitle(){
+        ArticleEditorPage articleEditorPage = homePage.clickNewArticle();
+
+        articleEditorPage.enterDescription(ARTICLE_DESCRIPTION);
+        articleEditorPage.enterBody(ARTICLE_BODY);
+        articleEditorPage.enterTags(ARTICLE_TAG);
+        articleEditorPage.clickPublishArticle();
+
+        assertTrue(driver.getCurrentUrl().contains("/editor"));
+    }
+
+    @Test
     void shouldEditArticleSuccessfully(){
         String uniqueId = String.valueOf(System.currentTimeMillis());
         String articleTitle = "Selenium test article " + uniqueId;

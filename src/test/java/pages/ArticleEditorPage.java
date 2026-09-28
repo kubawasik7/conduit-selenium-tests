@@ -42,4 +42,8 @@ public class ArticleEditorPage extends BasePage{
         titleField.clear();
         titleField.sendKeys(title);
     }
+
+    public void clickPublishArticle(){
+        waitForClickable(publishButton).click();
+    }
 }
