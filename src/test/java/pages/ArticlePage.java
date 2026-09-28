@@ -73,4 +73,19 @@ public class ArticlePage extends BasePage {
         return wait.until(driver ->
                 !driver.findElements(commentLocator).isEmpty());
     }
+
+    public void deleteComment(String comment){
+        By deleteCommentButton = By.xpath(
+                "//p[contains(@class, 'card-text')][normalize-space()='" + comment + "']" +
+                        "/ancestor::div[contains(@class, 'card')]//i[@fx-method='DELETE']"
+        );
+
+        waitForClickable(deleteCommentButton).click();
+    }
+
+    public boolean isCommentRemoved(String comment){
+        By commentLocator = By.xpath("//p[contains(@class, 'card-text')][normalize-space()='" + comment + "']");
+        return wait.until(driver ->
+                driver.findElements(commentLocator).isEmpty());
+    }
 }

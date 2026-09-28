@@ -137,4 +137,18 @@ public class ArticleTests extends AuthenticatedTest {
         articlePage.clickPostComment();
         assertTrue(articlePage.isCommentDisplayed(comment));
     }
+
+    @Test
+    void shouldDeleteCommentSuccessfully(){
+        ArticlePage articlePage = homePage.clickArticle(EXISTING_ARTICLE_TITLE);
+        String comment = "Selenium test comment " + System.currentTimeMillis();
+        articlePage.enterComment(comment);
+        articlePage.clickPostComment();
+
+        assertTrue(articlePage.isCommentDisplayed(comment));
+
+        articlePage.deleteComment(comment);
+
+        assertTrue(articlePage.isCommentRemoved(comment));
+    }
 }
