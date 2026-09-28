@@ -151,4 +151,11 @@ public class ArticleTests extends AuthenticatedTest {
 
         assertTrue(articlePage.isCommentRemoved(comment));
     }
+
+    @Test
+    void shouldNotAddEmptyComment(){
+        ArticlePage articlePage = homePage.clickArticle(EXISTING_ARTICLE_TITLE);
+        articlePage.clickPostComment();
+        assertTrue(articlePage.isCommentErrorDisplayed());
+    }
 }

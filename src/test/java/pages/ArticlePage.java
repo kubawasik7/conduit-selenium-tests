@@ -10,6 +10,7 @@ public class ArticlePage extends BasePage {
     private By deleteButton = By.xpath("//button[normalize-space()='Delete Article']");
     private By commentTextArea = By.name("body");
     private By postCommentButton = By.xpath("//button[normalize-space()='Post Comment']");
+    private By commentError = By.xpath("//div[@id='comment-list'][contains(., 'Comment body is required')]");
 
     public ArticlePage(WebDriver driver) {
         super(driver);
@@ -87,5 +88,9 @@ public class ArticlePage extends BasePage {
         By commentLocator = By.xpath("//p[contains(@class, 'card-text')][normalize-space()='" + comment + "']");
         return wait.until(driver ->
                 driver.findElements(commentLocator).isEmpty());
+    }
+
+    public boolean isCommentErrorDisplayed(){
+        return waitForVisibility(commentError).isDisplayed();
     }
 }
