@@ -56,4 +56,10 @@ public class RegisterTests extends BaseTest {
         registerPage.clickSignUpButton();
         assertTrue(driver.getCurrentUrl().contains("/register"));
     }
+
+    @Test
+    void shouldNotRegisterUserWithInvalidEmail(){
+        registerPage.register(testUser.getUsername(), "invalidEmail-gmail.com", testUser.getPassword());
+        assertTrue(driver.getCurrentUrl().contains("/register"));
+    }
 }
