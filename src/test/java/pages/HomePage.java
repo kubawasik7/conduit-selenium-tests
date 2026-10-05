@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public class HomePage extends BasePage{
     private static final By SIGN_IN_LINK = By.cssSelector("a[href='/login']");
+    private static final By SIGN_UP_LINK = By.cssSelector("a[href='/register']");
     private static final By USER_LINK = By.cssSelector("a[href^='/profile/']");
     private static final By NEW_ARTICLE_LINK = By.cssSelector("a[href='/editor']");
 
@@ -15,6 +16,11 @@ public class HomePage extends BasePage{
     public LoginPage clickSignIn() {
         waitForClickable(SIGN_IN_LINK).click();
         return new LoginPage(driver);
+    }
+
+    public RegisterPage clickSignUp() {
+        waitForClickable(SIGN_UP_LINK);
+        return new RegisterPage(driver);
     }
 
     public ArticlePage clickArticle(String title) {
