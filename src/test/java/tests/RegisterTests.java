@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RegisterTests extends BaseTest {
     private static TestUser testUser;
     private RegisterPage registerPage;
-    
+
     @BeforeAll
     static void setUpTestData(){
         testUser = TestDataReader.getRegistrationUser();
@@ -31,5 +31,29 @@ public class RegisterTests extends BaseTest {
         registerPage.register(testUser.getUsername(), testUser.getEmail(), testUser.getPassword());
         HomePage homePage = new HomePage(driver);
         assertTrue(homePage.isUserProfileDisplayed());
+    }
+
+    @Test
+    void shouldNotRegisterUserWithEmptyUsername() {
+        registerPage.enterEmail(testUser.getEmail());
+        registerPage.enterPassword(testUser.getPassword());
+        registerPage.clickSignUpButton();
+        assertTrue(driver.getCurrentUrl().contains("/register"));
+    }
+
+    @Test
+    void shouldNotRegisterUserWithEmptyPassword() {
+        registerPage.enterUsername(testUser.getUsername());
+        registerPage.enterEmail(testUser.getEmail());
+        registerPage.clickSignUpButton();
+        assertTrue(driver.getCurrentUrl().contains("/register"));
+    }
+
+    @Test
+    void shouldNotRegisterUserWithEmptyEmail() {
+        registerPage.enterUsername(testUser.getUsername());
+        registerPage.enterPassword(testUser.getPassword());
+        registerPage.clickSignUpButton();
+        assertTrue(driver.getCurrentUrl().contains("/register"));
     }
 }
