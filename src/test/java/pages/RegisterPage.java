@@ -29,7 +29,7 @@ public class RegisterPage extends BasePage{
         enterUsername(username);
         enterEmail(email);
         enterPassword(password);
-
+        clickSignUpButton();
     }
 
     public void clickSignUpButton(){
