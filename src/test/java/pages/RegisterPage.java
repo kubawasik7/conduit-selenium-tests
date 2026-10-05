@@ -7,7 +7,7 @@ public class RegisterPage extends BasePage{
     public static final By USERNAME = By.name("username");
     public static final By PASSWORD = By.name("password");
     public static final By EMAIL = By.name("email");
-    public static final By SIGN_UP_BUTTON = By.xpath("//button[normalize-space()='Sign Up']");
+    public static final By SIGN_UP_BUTTON = By.xpath("//button[normalize-space()='Sign up']");
 
     public RegisterPage(WebDriver driver) {
         super(driver);
@@ -25,7 +25,7 @@ public class RegisterPage extends BasePage{
         waitForVisibility(EMAIL).sendKeys(email);
     }
 
-    public void register(String username, String password, String email){
+    public void register(String username, String email, String password){
         enterUsername(username);
         enterEmail(email);
         enterPassword(password);
