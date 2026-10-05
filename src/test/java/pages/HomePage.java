@@ -19,7 +19,7 @@ public class HomePage extends BasePage{
     }
 
     public RegisterPage clickSignUp() {
-        waitForClickable(SIGN_UP_LINK);
+        waitForClickable(SIGN_UP_LINK).click();
         return new RegisterPage(driver);
     }
 
