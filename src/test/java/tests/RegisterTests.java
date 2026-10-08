@@ -68,4 +68,10 @@ public class RegisterTests extends BaseTest {
         registerPage.register(testUser.getUsername(), testUser.getEmail(), testUser.getPassword());
         assertTrue(registerPage.isRegistrationErrorDisplayed());
     }
+
+    @Test
+    void shouldNotRegisterUserWithExistingUsername(){
+        registerPage.register(testUser.getUsername(), "NonExistingEmail@gmail.com", testUser.getPassword());
+        assertTrue(registerPage.isRegistrationErrorDisplayed());
+    }
 }
