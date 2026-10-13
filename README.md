@@ -12,51 +12,69 @@ The project was created to practice automated testing with Selenium WebDriver an
 * Maven
 * Git / GitHub
 
-## What is tested
+## Test scenarios
 
 ### Login
 
-* successful login
-* invalid email
-* invalid password
-* invalid credentials
-* empty login fields
+* successful login 
+* login with unregistered email address
+* login with invalid email address format
+* login with invalid password
+* login with empty email field
+* login with empty password field
+
+
+### Registration
+- Successful registration
+- Registration with empty username
+- Registration with empty password
+- Registration with empty email address
+- Registration with invalid email address
+- Registration with existing username
+- Registration with existing email address
 
 ### Articles
-
-* creating an article
-* editing an article
-* opening an article
-* deleting an article
-* adding an article to favorites
-* removing an article from favorites
+- Opening an existing article
+- Creating an article successfully
+- Attempting to create an article without a title
+- Attempting to create an article without a description
+- Attempting to create an article without a body
+- Editing an article successfully
+- Deleting an article successfully
+- Adding an article to favorites
+- Removing an article from favorites
 
 ### Comments
+- Adding a comment successfully
+- Deleting a comment
+- Attempting to add an empty comment
 
-* adding a comment
-* deleting a comment
-* empty comment validation
+## Test cases
 
-## Project structure
+Detailed test cases are documented separately in [TEST_CASES.md](TEST_CASES.md).
+
+The test cases describe the test conditions, steps and expected results. Selected test cases are implemented as automated UI tests using Selenium WebDriver.
+
+## Test architecture
 
 The tests use the Page Object Model to keep page interactions separate from test logic.
+
+Explicit waits are used instead of `Thread.sleep()` to improve test stability.
+
+Test data is stored separately from test classes in a properties file.
 
 ## Project structure
 
 **src/test/java**
 
-* `base` - test setup
-* `data` - test data
-* `pages`- Page Objects
-* `tests`- test cases
+* `base` - test setup and base classes
+* `data` - test data and data readers
+* `pages` - Page Objects
+* `tests` - automated UI tests
 
 **src/test/resources**
 
-* `test-data.properties` - test credentials
-
-Explicit waits are used instead of `Thread.sleep()`.
-
-Test credentials are kept in a separate properties file rather than directly in the test classes.
+* `test-data.properties` - test credentials and registration data
 
 ## Running tests
 
@@ -82,10 +100,8 @@ mvn -Dtest=LoginTests test
 
 I built this project as part of my preparation for a Junior QA / Test Automation position.
 
-The main goal was to get practical experience with Selenium, JUnit, Page Object Model, waits, test data and organizing an automated test project.
+The main goal was to gain practical experience with Selenium WebDriver, JUnit, Page Object Model, explicit waits, test data management and organizing an automated test project.
 
 ## Author
 
 Jakub Wąsik
-
-GitHub: https://github.com/kubawasik7
